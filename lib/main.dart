@@ -13,6 +13,28 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Personal Expenses',
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+        accentColor: Colors.amber,
+        fontFamily: 'Quicksand',
+        textTheme: ThemeData.light().textTheme.copyWith(
+              headline6: TextStyle(
+                fontFamily: 'OpenSans',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+        appBarTheme: AppBarTheme(
+          textTheme: ThemeData.light().textTheme.copyWith(
+                headline6: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+        ),
+        accentIconTheme: IconThemeData(color: Colors.black),
+      ),
       home: MyHomePage(),
     );
   }
@@ -24,7 +46,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   final List<Transaction> _userTransactions = [
     Transaction(
       id: 't1',
@@ -54,9 +75,11 @@ class _MyHomePageState extends State<MyHomePage> {
     showModalBottomSheet(
         context: ctx,
         builder: (builderContext) {
-          return GestureDetector(child: NewTransaction(_addNewTransaction),
-          onTap: () {},
-          behavior: HitTestBehavior.opaque,);
+          return GestureDetector(
+            child: NewTransaction(_addNewTransaction),
+            onTap: () {},
+            behavior: HitTestBehavior.opaque,
+          );
         });
   }
 
@@ -96,6 +119,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
+        foregroundColor: Theme.of(context).accentIconTheme.color,
+        //backgroundColor: Theme.of(context).accentIconTheme.color,
         child: Icon(Icons.add),
         onPressed: () => _startAddNewTransaction(context),
       ),
