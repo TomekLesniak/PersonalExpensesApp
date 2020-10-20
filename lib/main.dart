@@ -141,22 +141,20 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
-    final _isLandscapeMode = mediaQuery.orientation == Orientation.landscape;
+  Widget _buildCupertinoAppBar() {
+    return CupertinoNavigationBar(
+        middle: Text('Personal Expenses'),
+        trailing: Row(
+          children: [
+            CupertinoButton(
+                child: Icon(CupertinoIcons.add),
+                onPressed: () => _startAddNewTransaction(context))
+          ],
+        ));
+  }
 
-    final PreferredSizeWidget appBar = Platform.isIOS
-        ? CupertinoNavigationBar(
-            middle: Text('Personal Expenses'),
-            trailing: Row(
-              children: [
-                CupertinoButton(
-                    child: Icon(CupertinoIcons.add),
-                    onPressed: () => _startAddNewTransaction(context))
-              ],
-            ))
-        : AppBar(
+  Widget _buildAndroidAppBar() {
+    return AppBar(
             title: Text('Personal Expenses'),
             actions: [
               IconButton(
@@ -167,6 +165,16 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ],
           );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    final _isLandscapeMode = mediaQuery.orientation == Orientation.landscape;
+
+    final PreferredSizeWidget appBar = Platform.isIOS
+        ? _buildCupertinoAppBar()
+        : _buildAndroidAppBar();
 
     final txListWidget = Container(
         height: (mediaQuery.size.height -

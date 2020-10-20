@@ -20,6 +20,12 @@ class _NewTransactionState extends State<NewTransaction> {
 
   DateTime _selectedDate;
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   void _submitData() {
     if (_amountController.text.isEmpty || _titleController.text.isEmpty) return;
 
